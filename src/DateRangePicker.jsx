@@ -505,7 +505,7 @@ const DateRangePicker = React.createClass({
     if (selectionType === 'multiple'){
       if(value == undefined){ value = [] }
       highlightedDates = value.map(function(selectedDate){
-        return selectedDate.format('YYYY-MM-DD');
+        return moment(selectedDate).format('YYYY-MM-DD');
       });
       if(highlightedDates == null){ highlightedDates = []}
     }
