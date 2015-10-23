@@ -361,7 +361,7 @@ const DateRangePicker = React.createClass({
 
   completeMultipleSelection(momentDate) {
     var date = momentDate.format('YYYY-MM-DD');
-    var highlightedDates = this.props.value;
+    var highlightedDates = this.props.value || [];
     var index = highlightedDates.indexOf(date);
 
     if (index > -1) {
