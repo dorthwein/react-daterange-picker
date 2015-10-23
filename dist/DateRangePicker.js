@@ -12,7 +12,7 @@ var _reactAddons2 = _interopRequireDefault(_reactAddons);
 
 var _moment = require('moment');
 
-var _moment2 = _interopRequireDefault(_moment);
+var _moment3 = _interopRequireDefault(_moment);
 
 require('moment-range');
 
@@ -53,8 +53,8 @@ var _utilsIsMomentRange = require('./utils/isMomentRange');
 var _utilsIsMomentRange2 = _interopRequireDefault(_utilsIsMomentRange);
 
 var PureRenderMixin = _reactAddons2['default'].addons.PureRenderMixin;
-var absoluteMinimum = (0, _moment2['default'])(new Date(-8640000000000000 / 2)).startOf('day');
-var absoluteMaximum = (0, _moment2['default'])(new Date(8640000000000000 / 2)).startOf('day');
+var absoluteMinimum = (0, _moment3['default'])(new Date(-8640000000000000 / 2)).startOf('day');
+var absoluteMaximum = (0, _moment3['default'])(new Date(8640000000000000 / 2)).startOf('day');
 
 try {
   _reactAddons2['default'].initializeTouchEvents(true);
@@ -159,7 +159,7 @@ var DateRangePicker = _reactAddons2['default'].createClass({
 
     if (selectionType === 'multiple' && selectedMultipleDates && value instanceof Array) {
       selectedMultipleDates = value.map(function (selectedDate) {
-        return (0, _moment2['default'])(selectedDate).format('YYYY-MM-DD');
+        return (0, _moment3['default'])(selectedDate).format('YYYY-MM-DD');
       });
     }
     if (initialFromValue && value) {
@@ -187,10 +187,10 @@ var DateRangePicker = _reactAddons2['default'].createClass({
   },
 
   getEnabledRange: function getEnabledRange(props) {
-    var min = props.minimumDate ? (0, _moment2['default'])(props.minimumDate).startOf('day') : absoluteMinimum;
-    var max = props.maximumDate ? (0, _moment2['default'])(props.maximumDate).startOf('day') : absoluteMaximum;
+    var min = props.minimumDate ? (0, _moment3['default'])(props.minimumDate).startOf('day') : absoluteMinimum;
+    var max = props.maximumDate ? (0, _moment3['default'])(props.maximumDate).startOf('day') : absoluteMaximum;
 
-    return _moment2['default'].range(min, max);
+    return _moment3['default'].range(min, max);
   },
 
   getDateStates: function getDateStates(props) {
@@ -201,7 +201,7 @@ var DateRangePicker = _reactAddons2['default'].createClass({
     var actualStates = [];
     var minDate = absoluteMinimum;
     var maxDate = absoluteMaximum;
-    var dateCursor = (0, _moment2['default'])(minDate).startOf('day');
+    var dateCursor = (0, _moment3['default'])(minDate).startOf('day');
 
     var defs = _immutable2['default'].fromJS(stateDefinitions);
 
@@ -213,7 +213,7 @@ var DateRangePicker = _reactAddons2['default'].createClass({
       if (!dateCursor.isSame(start, 'day')) {
         actualStates.push({
           state: defaultState,
-          range: _moment2['default'].range(dateCursor, start)
+          range: _moment3['default'].range(dateCursor, start)
         });
       }
       actualStates.push(s);
@@ -222,7 +222,7 @@ var DateRangePicker = _reactAddons2['default'].createClass({
 
     actualStates.push({
       state: defaultState,
-      range: _moment2['default'].range(dateCursor, maxDate)
+      range: _moment3['default'].range(dateCursor, maxDate)
     });
 
     // sanitize date states
@@ -274,7 +274,7 @@ var DateRangePicker = _reactAddons2['default'].createClass({
         return range.intersect(r);
       });
       if (intersect) {
-        return _moment2['default'].range(range.start, intersect.start);
+        return _moment3['default'].range(range.start, intersect.start);
       }
     } else {
       intersect = blockedRanges.findLast(function (r) {
@@ -282,16 +282,16 @@ var DateRangePicker = _reactAddons2['default'].createClass({
       });
 
       if (intersect) {
-        return _moment2['default'].range(intersect.end, range.end);
+        return _moment3['default'].range(intersect.end, range.end);
       }
     }
 
     if (range.start.isBefore(this.state.enabledRange.start)) {
-      return _moment2['default'].range(this.state.enabledRange.start, range.end);
+      return _moment3['default'].range(this.state.enabledRange.start, range.end);
     }
 
     if (range.end.isAfter(this.state.enabledRange.end)) {
-      return _moment2['default'].range(range.start, this.state.enabledRange.end);
+      return _moment3['default'].range(range.start, this.state.enabledRange.end);
     }
 
     return range;
@@ -323,7 +323,7 @@ var DateRangePicker = _reactAddons2['default'].createClass({
       } else if (!this.isDateDisabled(date) && this.isDateSelectable(date)) {
         this.startRangeSelection(date);
         if (this.props.singleDateRange) {
-          this.highlightRange(_moment2['default'].range(date, date));
+          this.highlightRange(_moment3['default'].range(date, date));
         }
       }
     } else if (selectionType === 'multiple') {
@@ -350,7 +350,7 @@ var DateRangePicker = _reactAddons2['default'].createClass({
         datePair = _immutable2['default'].List.of(selectedStartDate, date).sortBy(function (d) {
           return d.unix();
         });
-        range = _moment2['default'].range(datePair.get(0), datePair.get(1));
+        range = _moment3['default'].range(datePair.get(0), datePair.get(1));
         forwards = range.start.unix() === selectedStartDate.unix();
         range = this.sanitizeRange(range, forwards);
         this.highlightRange(range);
@@ -370,7 +370,7 @@ var DateRangePicker = _reactAddons2['default'].createClass({
       selectedStartDate: date
     });
     if (typeof this.props.onSelectStart === 'function') {
-      this.props.onSelectStart((0, _moment2['default'])(date));
+      this.props.onSelectStart((0, _moment3['default'])(date));
     }
   },
 
@@ -443,7 +443,7 @@ var DateRangePicker = _reactAddons2['default'].createClass({
   },
 
   getMonthDate: function getMonthDate() {
-    return (0, _moment2['default'])(new Date(this.state.year, this.state.month, 1));
+    return (0, _moment3['default'])(new Date(this.state.year, this.state.month, 1));
   },
 
   canMoveBack: function canMoveBack() {
@@ -491,11 +491,11 @@ var DateRangePicker = _reactAddons2['default'].createClass({
     var enabledRange = _state.enabledRange;
     var month = _state.month;
 
-    if ((0, _moment2['default'])({ years: year, months: month, date: 1 }).unix() < enabledRange.start.unix()) {
+    if ((0, _moment3['default'])({ years: year, months: month, date: 1 }).unix() < enabledRange.start.unix()) {
       month = enabledRange.start.month();
     }
 
-    if ((0, _moment2['default'])({ years: year, months: month + 1, date: 1 }).unix() > enabledRange.end.unix()) {
+    if ((0, _moment3['default'])({ years: year, months: month + 1, date: 1 }).unix() > enabledRange.end.unix()) {
       month = enabledRange.end.month();
     }
 
@@ -539,9 +539,9 @@ var DateRangePicker = _reactAddons2['default'].createClass({
     var monthDates = _immutable2['default'].fromJS(cal.monthDates(monthDate.year(), monthDate.month()));
     var monthStart = monthDates.first().first();
     var monthEnd = monthDates.last().last();
-    var monthRange = _moment2['default'].range(monthStart, monthEnd);
+    var monthRange = _moment3['default'].range(monthStart, monthEnd);
 
-    if (_moment2['default'].isMoment(value)) {
+    if (_moment3['default'].isMoment(value)) {
       if (!monthRange.contains(value)) {
         value = null;
       }
@@ -551,12 +551,24 @@ var DateRangePicker = _reactAddons2['default'].createClass({
       }
     }
 
-    if (!_moment2['default'].isMoment(highlightedDate) || !monthRange.contains(highlightedDate)) {
+    if (!_moment3['default'].isMoment(highlightedDate) || !monthRange.contains(highlightedDate)) {
       highlightedDate = null;
     }
 
     if (!(0, _utilsIsMomentRange2['default'])(highlightedRange) || !monthRange.overlaps(highlightedRange)) {
       highlightedRange = null;
+    }
+
+    if (selectionType === 'multiple') {
+      if (value == undefined) {
+        value = [];
+      }
+      highlightedDates = value.map(function (selectedDate) {
+        return (0, _moment2['default'])(selectedDate).format('YYYY-MM-DD');
+      });
+      if (highlightedDates == null) {
+        highlightedDates = [];
+      }
     }
 
     props = {
