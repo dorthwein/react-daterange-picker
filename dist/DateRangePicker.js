@@ -157,7 +157,7 @@ var DateRangePicker = _reactAddons2['default'].createClass({
       month = initialMonth;
     }
 
-    if (value instanceof Array) {
+    if (selectionType === 'multiple' && selectedMultipleDates && value instanceof Array) {
       selectedMultipleDates = value.map(function (selectedDate) {
         return (0, _moment2['default'])(selectedDate).format('YYYY-MM-DD');
       });
@@ -420,8 +420,7 @@ var DateRangePicker = _reactAddons2['default'].createClass({
 
   completeMultipleSelection: function completeMultipleSelection(momentDate) {
     var date = momentDate.format('YYYY-MM-DD');
-
-    var highlightedDates = this.state.highlightedDates;
+    var highlightedDates = this.props.value;
     var index = highlightedDates.indexOf(date);
 
     if (index > -1) {

@@ -156,7 +156,7 @@ const Index = React.createClass({
 
     const initialStart = moment().add(1, 'weeks').startOf('day');
     const initialEnd = moment().add(1, 'weeks').add(3, 'days').startOf('day');
-
+    var dates = ["2015-4-29", "2015-4-28", "2015-4-27"];
     return (
       <main>
         <Header />
@@ -218,7 +218,7 @@ const Index = React.createClass({
                 numberOfCalendars={2}
                 selectionType="multiple"
                 minimumDate={new Date()}
-                value={['2015-04-14']}
+                value={dates}
               />
             </div>
 
